@@ -1,0 +1,361 @@
+*{
+    font-family: Arial, serif;
+}
+
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+body, html {
+    height: 100%;
+    overflow: hidden;  /* This stops the page from scrolling */
+}
+
+body{
+    background-color: tomato;
+    margin: 0 auto;
+    width: 1000px;
+    height: 1000px;
+}
+/*phone screen config*/
+.phone-screen {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*this is to center the phone on the screen*/
+    background-color: white;
+    width: 390px;
+    height: 844px;
+    margin: 50px auto;
+    border-radius: 28px;
+    border: 10px solid black;
+    /*overflow: auto;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+
+/*start of header*/
+.static-header{
+    overflow: hidden;
+    background-image: linear-gradient(#067BF2, #6EB9FA,#ACDFFF);
+    padding: 20px 20px 40px 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+}
+.logo{
+    height: 20px;
+}
+
+.top-icons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+
+}
+
+.top-icons img:nth-child(2){
+    border-radius: 50%;
+    height: 20px;
+}
+.credit-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+}
+.credit-container a:nth-child(1){
+    padding-bottom: 10px;
+}
+
+/*start of body*/
+.home-screen-content { /*this is the white container with round top corners*/
+    flex: 1;
+    z-index: 2;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: white;
+    border-radius: 18px;
+    bottom: 15px;
+    padding: 20px 20px 20px 20px;
+    height: 844px;
+}
+.search-bar input{
+    width: 85%;
+    height: 30px;
+    border-radius: 18px;
+    padding-left: 50px;
+    background-image: url("https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/search-dark.png");
+    background-position: left 10px center;
+    background-repeat: no-repeat;
+    background-color:#F6F6F6;
+    background-size: 20px;
+    border: 1px solid  rgba(0,0,0,0.05);
+
+}
+
+.cash-limit{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px 2px lightgray;
+    height: 70px;
+
+}
+.cash-limit-icon{
+    background-color: #F6F6F6;
+    flex: 1;
+    width: 100%;
+    border-radius: 6px 0 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.cash-limit-icon img{
+    height: 20px;
+}
+.withdraw-button{
+    flex: 1.5;
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 10px;
+    height: 40px ;
+    border-radius: 20px;
+    border: 0;
+    background-color: #067BF2;
+    color: white;
+}
+.withdraw-button:active{
+    flex: 1.5;
+    margin-top: 15px;
+    margin-right: 10px;
+    width: 10px;
+    height: 40px ;
+    border-radius: 20px;
+    border: 0;
+    background-color: rgba(6, 123, 242, 0.5);
+    color: white;
+}
+.withdraw-amt{
+    display: flex;
+    flex: 1.5;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 15px;
+    align-items: center;
+
+}
+.withdraw-amt a:nth-child(1){
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.withdraw-amt a:nth-child(2){
+    font-size: 16px;
+}
+
+/*top merchants grid*/
+.top-merchants-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3px 0 0;
+}
+.top-merchants-header a{
+    color: #067BF2;
+}
+#merchant-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5px ;
+}
+
+.grid-merchants {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid red;*/
+    position: relative;
+    border-radius: 8px;
+}
+
+.grid-merchants img {
+    max-width: 55px;
+    /*max-height: 90%;*/
+    border-radius: 8px;
+    border: rgba(0,0,0,0.4);
+    box-shadow: 0 0 6px  rgba(0,0,0,0.4);
+
+}
+
+
+/*Bottom nav*/
+.bottom-nav{
+    background-color: white;
+    width: 99.5%;
+    height: 70px;
+    z-index: 2;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid lightgray;
+}
+.bottom-menu{
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+}
+.bottom-menu img{
+    height: 30px;
+}
+
+/*additional sliding screens */
+.slide-cover {
+    position: fixed;
+    top: 0;
+    left: 100%; /* start from the right outside of the .phone-screen */
+    width: 100%;
+    height: auto;
+    background-color: white;
+    z-index: 3;
+    transition: left 0.5s ease; /* transition effect */
+    border-radius: 18px;
+}
+
+.all-merchants-screen{
+    padding: 20px 20px 20px 20px;
+}
+.side-screen-top-nav{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    justify-content: left;
+}
+.back-arrow{
+    height: 30px;
+    margin-right: 90px;
+}
+.merchant-list-div{
+    padding: 10px;
+
+}
+.list-merchant-images{
+    height: 60px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px  rgba(0,0,0,0.5);
+    margin-right: 30px;
+}
+.each-merchant-list{
+    display: flex;
+    flex-direction: column;
+}
+.each-merchant-list span:nth-child(1){
+    margin-bottom: 10px;
+}
+.each-merchant-list span:nth-child(2){
+    font-size: 14px;
+    color: gray;
+}
+.individual-merchant-card{
+    box-shadow: 2px 2px 10px 2px lightgray;
+    border-radius: 10px;
+
+}
+.top-card{
+    display: flex;
+    align-items: flex-start;
+    margin-top: 25px;
+    justify-content: space-between;
+    padding: 15px 15px 15px 15px;
+
+}
+.bottom-card-info{
+    padding: 0 15px 15px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.icon-name{
+    display: inline-flex;
+}
+.icon-name span{
+    margin-left: -15px;
+}
+.name-description{
+    display: flex;
+    flex-direction: column;
+}
+.name-description span:nth-child(2){
+    font-size: 10px;
+    margin-top: 4px;
+    color: gray;
+
+}
+.merchant-card-icon{
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px  rgba(0,0,0,0.5);
+    margin-right: 30px;
+}
+.credit-request-box{
+    border: 1px solid  rgba(0,0,0,0.05);
+    margin-top: 40px;
+    border-radius: 8px;
+    background-color: #F6F6F6;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+.loan-request-amt, .loan-request-amt:focus{
+    background-color:#F6F6F6;
+    border: 0;
+    font-size: 18px;
+    outline: none;
+    -webkit-appearance: none;
+}
+.credit-request-confirtation-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+
+}
+.credit-request-confirtation-button button{
+    width: 100%;
+    height: 40px;
+    border-radius: 24px;
+    background-color: #067BF2;
+    color: white;
+    border: none;
+}
+.credit-request-confirtation-button button:active{
+    width: 100%;
+    height: 40px;
+    border-radius: 24px;
+    background-color: rgba(6, 123, 242, 0.5);
+    color: white;
+    border: none;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
