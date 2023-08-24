@@ -1865,12 +1865,24 @@ for (let i = 0; i < merchants.length; i++) {
 
 //returns the merchant object when clicking on grid
 let selectedMerchant = ""
+
 function showMerchantGrid(element) {
     const index = element.getAttribute('data-index');
     const merchant = merchants_top[index];
     selectedMerchant = merchant
     console.log(selectedMerchant);
     seeMerchant(this)
+    return merchant
+}
+
+let selectedMerchantFromList = ""
+
+function showMerchantList(element) {
+    const index = element.getAttribute('data-index');
+    const merchant = merchants[index];
+    selectedMerchantFromList = merchant
+    console.log(selectedMerchantFromList);
+    sideListMerchant(this)
     return merchant
 }
 
@@ -1916,6 +1928,12 @@ coverDiv.className = 'slide-cover';
 phoneScreen.appendChild(coverDiv);
 
 //*********************************//
+// second cover div
+const sideCover = document.querySelector('.slide-cover');
+const secondCoverDiv = document.createElement('div');
+secondCoverDiv.className = 'second-slide-cover';
+
+//********************************//
 
 function showCoverScreen() {
     const coverScreen = document.querySelector('.slide-cover')
@@ -1924,13 +1942,33 @@ function showCoverScreen() {
     });
 }
 
+function showSecondCoverScreen() {
+    const secondCoverScreen = document.querySelector('.second-slide-cover')
+    console.log(secondCoverScreen)
+    requestAnimationFrame(() => {
+        secondCoverScreen.style.left = '0%';
+    });
+
+}
+
 function removeCoverScreen() {
     const coverScreen = document.querySelector('.slide-cover')
     requestAnimationFrame(() => {
         coverScreen.style.left = '100%';
         setTimeout(function () {
-            coverScreen.removeChild(coverScreen.firstChild)
-        }, 500)
+            coverScreen.replaceChildren()
+        }, 400)
+    });
+}
+
+function removeSecondCoverScreen() {
+    const coverScreen = document.querySelector('.second-slide-cover')
+    const secondScreen = document.querySelector('.all-merchants-screen')
+    requestAnimationFrame(() => {
+        coverScreen.style.left = '100%';
+        setTimeout(function () {
+            coverScreen.replaceChildren()
+        }, 300)
     });
 }
 
@@ -1953,8 +1991,12 @@ for (let i = 0; i < 100; i++) {
     const eachMerchantDiv = document.createElement("div")
     eachMerchantDiv.className = 'merchant-list-div'
     eachMerchantDiv.style.display = 'flex'
+    eachMerchantDiv.setAttribute('data-index', i)
+    eachMerchantDiv.onclick = function () {
+        showMerchantList(this)
+    }
     eachMerchantDiv.innerHTML = `
-    <img class="list-merchant-images" src="${merchants[i].icon_url}">
+    <img onclick="sideListMerchant(this)" class="list-merchant-images" src="${merchants[i].icon_url}">
     <div class="each-merchant-list">
     <span>${merchants[i].name}</span>
     <span>${merchants[i].priority_categories[0]['category'].toLowerCase().replace(/_/g, " ")}</span>
@@ -1978,7 +2020,7 @@ individualMerchantInfo.style.height = '10000px'
 individualMerchantInfo.style.padding = '20px'
 
 function seeMerchant() {
-    individualMerchantInfo.innerHTML =`
+    individualMerchantInfo.innerHTML = `
     <div>
         <div class="side-screen-top-nav">
             <img onclick="removeCoverScreen(this)" class="back-arrow" src="https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/outline-arrow_back-24px+(1).png">
@@ -2020,4 +2062,50 @@ function seeMerchant() {
     `
     coverDiv.appendChild(individualMerchantInfo);
     showCoverScreen();
+}
+
+function sideListMerchant() {
+    individualMerchantInfo.innerHTML = `
+    <div>
+        <div class="side-screen-top-nav">
+            <img onclick="removeSecondCoverScreen(this)" class="back-arrow" src="https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/outline-arrow_back-24px+(1).png">
+            <span style="font-size: 24px;">${selectedMerchantFromList.name}</span>
+        </div>
+    </div>
+    <div class="individual-merchant-card">
+        <div class="top-card">
+            <div class="icon-name">
+                <img  class="merchant-card-icon" src="${selectedMerchantFromList.icon_url}">
+                <div class="name-description">
+                    <span style="font-size: 18px">${selectedMerchantFromList.name}</span>
+                    <span>Pay in up to 4 installments</span>
+                </div>
+            </div>
+         <img style="height: 40px" src="https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/Group+405.png">
+        </div>
+        <div class="bottom-card-info">
+            <div class="name-description">
+                <span style="font-size: 18px">$${dollarUSLocale.format(totalCreditAmount)}</span>
+                <span>Purchase power</span>
+            </div>
+            <div class="name-description">
+               <span style="font-size: 18px; color: #067BF2">7% to 15%</span>
+               <span style="text-align: right">Purchase power</span>
+            </div>
+        </div>
+    </div>
+    
+<div class="credit-request-box">
+    <span>Purchase amount</span>
+    <div>
+     <span>$ </span><input class="loan-request-amt" type="number" placeholder="0.00">
+    </div>
+</div>
+<div class="credit-request-confirtation-button">
+    <button>Confirm</button>
+</div>
+    `
+    sideCover.appendChild(secondCoverDiv)
+    secondCoverDiv.appendChild(individualMerchantInfo);
+    showSecondCoverScreen();
 }
