@@ -20,7 +20,7 @@ body{
 /*phone screen config*/
 .phone-screen {
     position: fixed;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /*this is to center the phone on the screen*/
     background-color: white;
