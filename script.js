@@ -1841,8 +1841,19 @@ for (let i = 0; i < merchants.length; i++) {
     merchants[i].priority_categories = JSON.parse(merchants[i].priority_categories);
 }
 
-let dollarUSLocale = Intl.NumberFormat('en-US');
+function getDateAfterXDays(x) {
+    const date = new Date()
+    date.setDate(date.getDate() + x)
 
+    const day = date.getDate()
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const month = monthNames[date.getMonth()]
+    const year = date.getFullYear()
+
+    return `${day} ${month} ${year}`
+}
+
+let dollarUSLocale = Intl.NumberFormat('en-US');
 let totalCreditAmount = 15000
 let totalCashCreditAmount = 5000
 
@@ -2061,7 +2072,7 @@ function seeMerchant() {
     </div>
 </div>
 <div class="credit-request-confirtation-button">
-    <button onclick="decreaseTotalLimit(this)">Confirm</button>
+    <button onclick="decreaseTotalLimit(this)">Continue</button>
 </div>
     `
     coverDiv.appendChild(individualMerchantInfo);
@@ -2132,12 +2143,33 @@ let noFundsDiv = document.createElement('div')
 noFundsDiv.innerHTML =
     `
         <div>
-            <span>No cuentas con fondos suficientes, selecciona un monto menor o haz un pago de tu adeudo para poder continuar.</span>
+            <span>You don't have enough funds. Please select a lower amount that is within your credit limit.</span>
         </div>`
 noFundsDiv.className = "noFunds"
+
+let paymentPlanDiv = document.createElement('div')
+paymentPlanDiv.className = 'choose-your-plan'
+paymentPlanDiv.innerHTML =
+    `        <div class="inside-payment-plan">
+            <span>Choose your payment plan</span>
+        </div>`
+
+
+
+function selectedPlan(element) {
+    let updateBackground = element;
+    updateBackground.style.border = '1px solid #067BF2';
+    console.log(updateBackground);
+}
+let inFourDues = getDateAfterXDays(7*4)
+let inTwoDues = getDateAfterXDays(7*2)
 function decreaseTotalLimit(element){
     borrowedAmt = document.querySelector('.loan-request-amt').value
-    if(totalCreditAmount - borrowedAmt <= 0){
+
+    if(borrowedAmt <= 0 ){
+
+    }
+    else if(totalCreditAmount - borrowedAmt <= 0){
 
         individualMerchantInfo.appendChild(noFundsDiv)
         requestAnimationFrame(() => {
@@ -2152,9 +2184,49 @@ function decreaseTotalLimit(element){
         totalCreditAmount = totalCreditAmount - borrowedAmt
         totalCredit.innerText = `$${dollarUSLocale.format(totalCreditAmount)}`
         console.log(totalCreditAmount)
+
+        let paymentOptions = document.createElement('div')
+
+        paymentOptions.innerHTML =
+            `
+        <div onclick="selectedPlan(this)" class="individual-payment-option">
+        <div>
+            <div class="top-of-option">
+                <a>4 installments</a>
+            </div>    
+            </div>
+            <div class="bottom-of-option">
+            <span>4 payments of $${(borrowedAmt / 4).toFixed(2)}</span>
+             <div class="date">
+            <a>Due every two weeks until ${inFourDues}</a>
+            </div>
+            </div>          
+        </div>
+        
+        <div onclick="selectedPlan(this)" class="individual-payment-option">
+        <div>
+            <div class="top-of-option">
+                <a>2 installments</a>
+            </div>    
+            </div>
+            <div class="bottom-of-option">
+            <span>2 payments of $${(borrowedAmt / 2).toFixed(2)}</span>
+             <div class="date">
+            <a>Due every two weeks until ${inTwoDues}</a>
+            </div>
+            </div>     
+                
+        </div>
+        
+    </div>     
+       
+
+            `
+
+        paymentPlanDiv.appendChild(paymentOptions)
+        individualMerchantInfo.appendChild(paymentPlanDiv)
+
     }
-
-
 
 }
 

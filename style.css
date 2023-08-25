@@ -370,14 +370,7 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.testint-stuff{
-    display: flex;
-    align-items: flex-start;
-    margin-top: 25px;
-    justify-content: space-between;
-    padding: 15px 15px 15px 15px;
-    z-index: 3;
-}
+
 .noFunds{
     position: absolute;
 
@@ -390,4 +383,41 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: left 0.5s ease;
     width: 80%;
 
+}
+.choose-your-plan{
+    margin-top: 40px;
+    padding: 20px 10px 20px 10px;
+    background-color: #F6F6F6;
+    border-radius: 10px;
+    border: 1px solid  rgba(0,0,0,0.05);
+
+}
+.individual-payment-option{
+    position: relative;
+    margin-top: 30px;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px 2px lightgray;
+    height: auto;
+}
+.top-of-option{
+    border-radius: 0 5px 0 5px ;
+    padding: 8px;
+    right: 0;
+    position: absolute;
+    font-size: 12px;
+    background-color: #067BF2;
+    color: #F6F6F6;
+}
+.bottom-of-option{
+    padding-top: 35px;
+    padding-bottom: 35px;
+    padding-left: 25px;
+}
+.bottom-of-option span{
+    color: #067BF2;
+    font-weight: bold;
+}
+.date{
+    font-size: 12px;
+    padding-top: 5px;
 }
