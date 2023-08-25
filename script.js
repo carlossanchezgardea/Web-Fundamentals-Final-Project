@@ -2171,7 +2171,7 @@ function decreaseTotalLimit(element){
     if(borrowedAmt <= 0 ){
 
     }
-    else if(totalCreditAmount - borrowedAmt <= 0){
+    else if(totalCreditAmount - borrowedAmt <= -1){
 
         individualMerchantInfo.appendChild(noFundsDiv)
         requestAnimationFrame(() => {
