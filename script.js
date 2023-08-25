@@ -2126,17 +2126,7 @@ function sideListMerchant() {
     showSecondCoverScreen();
 }
 
-let testDiv = `
-        <div class="cash-limit">
-            <div class="cash-limit-icon">
-                <img src="https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/Group+1097.png">
-            </div>
-            <div class="withdraw-amt">
-                <a>available in cash</a>
-                <a>$5,000.00</a>
-            </div>
-            <button class="withdraw-button">Withdraw</button>
-        </div>`
+
 let borrowedAmt = 0
 let noFundsDiv = document.createElement('div')
 
@@ -2160,7 +2150,17 @@ function selectedPlan(element) {
     let updateBackground = element;
     updateBackground.style.border = '1px solid #067BF2';
     console.log(updateBackground);
+    individualMerchantInfo.appendChild(confirmButton)
 }
+
+let confirmButton = document.createElement('div')
+confirmButton.innerHTML =
+    `
+    <div class="credit-request-confirtation-button">
+    <button onclick="removeCoverScreen(this)">confirm</button>
+</div>
+    `
+
 let inFourDues = getDateAfterXDays(7*4)
 let inTwoDues = getDateAfterXDays(7*2)
 function decreaseTotalLimit(element){
@@ -2218,9 +2218,7 @@ function decreaseTotalLimit(element){
                 
         </div>
         
-    </div>     
-       
-
+    </div>      
             `
 
         paymentPlanDiv.appendChild(paymentOptions)
