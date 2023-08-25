@@ -1972,6 +1972,8 @@ function removeCoverScreen() {
         coverScreen.style.left = '100%';
         setTimeout(function () {
             coverScreen.replaceChildren()
+            individualMerchantInfo.replaceChildren()
+            paymentPlanDiv.replaceChildren()
         }, 400)
     });
 }
