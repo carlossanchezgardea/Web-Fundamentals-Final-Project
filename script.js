@@ -1844,12 +1844,16 @@ for (let i = 0; i < merchants.length; i++) {
 let dollarUSLocale = Intl.NumberFormat('en-US');
 
 let totalCreditAmount = 15000
-let totalCashCreditAmount = 2000
+let totalCashCreditAmount = 5000
+
+
 
 let totalCredit = document.querySelector('.credit-container a:nth-child(2)')
 totalCredit.innerText = `$${dollarUSLocale.format(totalCreditAmount)}`
+
 let totalCash = document.querySelector('.withdraw-amt a:nth-child(2)')
 totalCash.innerText = `$${dollarUSLocale.format(totalCashCreditAmount)}`
+
 
 // TOP MERCHANTS FILTER
 const merchants_top = [];
@@ -2045,7 +2049,7 @@ function seeMerchant() {
             </div>
             <div class="name-description">
                <span style="font-size: 18px; color: #067BF2">7% to 15%</span>
-               <span style="text-align: right">Purchase power</span>
+               <span style="text-align: right">Financing fee</span>
             </div>
         </div>
     </div>
@@ -2057,7 +2061,7 @@ function seeMerchant() {
     </div>
 </div>
 <div class="credit-request-confirtation-button">
-    <button>Confirm</button>
+    <button onclick="decreaseTotalLimit(this)">Confirm</button>
 </div>
     `
     coverDiv.appendChild(individualMerchantInfo);
@@ -2090,7 +2094,8 @@ function sideListMerchant() {
             </div>
             <div class="name-description">
                <span style="font-size: 18px; color: #067BF2">7% to 15%</span>
-               <span style="text-align: right">Purchase power</span>
+               <span style="text-align: right">Financing fee</span>
+               <span style="text-align: right">Financing fee</span>
             </div>
         </div>
     </div>
@@ -2109,3 +2114,48 @@ function sideListMerchant() {
     secondCoverDiv.appendChild(individualMerchantInfo);
     showSecondCoverScreen();
 }
+
+let testDiv = `
+        <div class="cash-limit">
+            <div class="cash-limit-icon">
+                <img src="https://elasticbeanstalk-us-east-1-276538999374.s3.amazonaws.com/Group+1097.png">
+            </div>
+            <div class="withdraw-amt">
+                <a>available in cash</a>
+                <a>$5,000.00</a>
+            </div>
+            <button class="withdraw-button">Withdraw</button>
+        </div>`
+let borrowedAmt = 0
+let noFundsDiv = document.createElement('div')
+
+noFundsDiv.innerHTML =
+    `
+        <div>
+            <span>No cuentas con fondos suficientes, selecciona un monto menor o haz un pago de tu adeudo para poder continuar.</span>
+        </div>`
+noFundsDiv.className = "noFunds"
+function decreaseTotalLimit(element){
+    borrowedAmt = document.querySelector('.loan-request-amt').value
+    if(totalCreditAmount - borrowedAmt <= 0){
+
+        individualMerchantInfo.appendChild(noFundsDiv)
+        requestAnimationFrame(() => {
+            noFundsDiv.style.left = '0';
+        });
+        setTimeout(function() {
+            noFundsDiv.style.left = '100%'
+            individualMerchantInfo.removeChild(noFundsDiv);
+        }, 4000);
+    }else {
+        console.log(borrowedAmt)
+        totalCreditAmount = totalCreditAmount - borrowedAmt
+        totalCredit.innerText = `$${dollarUSLocale.format(totalCreditAmount)}`
+        console.log(totalCreditAmount)
+    }
+
+
+
+}
+
+
