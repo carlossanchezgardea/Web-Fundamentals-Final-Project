@@ -2108,7 +2108,6 @@ function sideListMerchant() {
             <div class="name-description">
                <span style="font-size: 18px; color: #067BF2">7% to 15%</span>
                <span style="text-align: right">Financing fee</span>
-               <span style="text-align: right">Financing fee</span>
             </div>
         </div>
     </div>
